@@ -1,0 +1,208 @@
+@import "tailwindcss";
+
+@plugin "@tailwindcss/forms";
+
+/* ===== Alpine.js x-cloak ===== */
+[x-cloak] { display: none !important; }
+
+/* ===== Base Layer ===== */
+@layer base {
+    body {
+        @apply bg-gray-50 text-gray-800 antialiased;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    a {
+        @apply transition-colors duration-200;
+    }
+}
+
+/* ===== Components Layer ===== */
+@layer components {
+    .card {
+        @apply bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden;
+    }
+
+    .card-header {
+        @apply px-6 py-4 border-b border-gray-100 bg-gray-50/50 font-semibold text-gray-700 flex items-center gap-2;
+    }
+
+    .card-body {
+        @apply p-6;
+    }
+
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .btn-primary {
+        @apply bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500 shadow-sm hover:shadow-md;
+    }
+
+    .btn-secondary {
+        @apply bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500 shadow-sm;
+    }
+
+    .btn-success {
+        @apply bg-emerald-600 text-white hover:bg-emerald-700 focus:ring-emerald-500 shadow-sm hover:shadow-md;
+    }
+
+    .btn-warning {
+        @apply bg-amber-500 text-white hover:bg-amber-600 focus:ring-amber-400 shadow-sm;
+    }
+
+    .btn-danger {
+        @apply bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 shadow-sm;
+    }
+
+    .btn-outline {
+        @apply border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-gray-400;
+    }
+
+    .btn-sm {
+        @apply px-3 py-1.5 text-xs;
+    }
+
+    .btn-lg {
+        @apply px-6 py-3 text-base;
+    }
+
+    .form-label {
+        @apply block text-sm font-medium text-gray-700 mb-1;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        @apply block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm transition-colors;
+    }
+
+    .form-input.has-error,
+    .form-select.has-error {
+        @apply border-red-400 focus:border-red-500 focus:ring-red-500;
+    }
+
+    .form-error {
+        @apply text-red-600 text-xs mt-1;
+    }
+
+    .table-responsive {
+        @apply overflow-x-auto;
+    }
+
+    .table {
+        @apply min-w-full divide-y divide-gray-200;
+    }
+
+    .table thead {
+        @apply bg-gray-50;
+    }
+
+    .table th {
+        @apply px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider;
+    }
+
+    .table td {
+        @apply px-4 py-3 text-sm text-gray-700 whitespace-nowrap;
+    }
+
+    .table tbody tr {
+        @apply hover:bg-gray-50 transition-colors;
+    }
+
+    .table-striped tbody tr:nth-child(even) {
+        @apply bg-gray-50/50;
+    }
+
+    .badge {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    }
+
+    .badge-success {
+        @apply bg-emerald-100 text-emerald-800;
+    }
+
+    .badge-danger {
+        @apply bg-red-100 text-red-800;
+    }
+
+    .badge-info {
+        @apply bg-blue-100 text-blue-800;
+    }
+
+    .badge-warning {
+        @apply bg-amber-100 text-amber-800;
+    }
+
+    .badge-gray {
+        @apply bg-gray-100 text-gray-700;
+    }
+
+    .alert {
+        @apply flex items-center gap-3 px-4 py-3 rounded-lg text-sm border-l-4;
+    }
+
+    .alert-info {
+        @apply bg-blue-50 border-blue-500 text-blue-800;
+    }
+
+    .alert-success {
+        @apply bg-emerald-50 border-emerald-500 text-emerald-800;
+    }
+
+    .alert-danger {
+        @apply bg-red-50 border-red-500 text-red-800;
+    }
+
+    .alert-warning {
+        @apply bg-amber-50 border-amber-500 text-amber-800;
+    }
+
+    .alert .alert-close {
+        @apply ml-auto p-1 hover:bg-black/5 rounded transition-colors cursor-pointer;
+    }
+
+    .modal-overlay {
+        @apply fixed inset-0 bg-black/50 z-50 flex items-center justify-center;
+    }
+
+    .pagination {
+        @apply flex items-center gap-1;
+    }
+
+    .pagination a,
+    .pagination span {
+        @apply px-3 py-1.5 text-sm rounded-md;
+    }
+
+    .pagination a {
+        @apply text-gray-700 hover:bg-gray-100 transition-colors;
+    }
+
+    .pagination .active span {
+        @apply bg-blue-600 text-white;
+    }
+}
+
+/* ===== Utilities Layer ===== */
+@layer utilities {
+    .protesta {
+        font-size: 0.7rem;
+        line-height: 1.6;
+    }
+
+    .texto-centrado {
+        text-align: center;
+    }
+
+    .logo-header {
+        height: 65px;
+        width: auto;
+    }
+
+    .skip-print {
+        @media print {
+            display: none !important;
+        }
+    }
+}
