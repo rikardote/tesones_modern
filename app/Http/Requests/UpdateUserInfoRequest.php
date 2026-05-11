@@ -14,6 +14,7 @@ final class UpdateUserInfoRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name' => ['required', 'string', 'max:255'],
             'adscripcion' => ['required', 'string', 'max:255'],
             'unidad' => ['required', 'string', 'max:255'],
             'lugar' => ['required', 'string', 'max:255'],

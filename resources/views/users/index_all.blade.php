@@ -31,6 +31,7 @@
                                 <div class="flex justify-center gap-1">
                                     <button
                                             data-id="{{ $user->id }}"
+                                            data-name="{{ $user->name }}"
                                             data-adscripcion="{{ $user->adscripcion }}"
                                             data-unidad="{{ $user->unidad }}"
                                             data-lugar="{{ $user->lugar }}"
@@ -86,6 +87,10 @@
                         @csrf
                         @method('PATCH')
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="md:col-span-2">
+                                <label class="form-label">Nombre</label>
+                                <input type="text" name="name" x-model="form.name" class="form-input" required>
+                            </div>
                             <div>
                                 <label class="form-label">Adscripción</label>
                                 <input type="text" name="adscripcion" x-model="form.adscripcion" class="form-input" required>
@@ -94,11 +99,11 @@
                                 <label class="form-label">Unidad</label>
                                 <input type="text" name="unidad" x-model="form.unidad" class="form-input" required>
                             </div>
-                            <div>
+                            <div class="md:col-span-2">
                                 <label class="form-label">Lugar</label>
                                 <input type="text" name="lugar" x-model="form.lugar" class="form-input" required>
                             </div>
-                            <div>
+                            <div class="md:col-span-2">
                                 <label class="form-label">Titular del área</label>
                                 <input type="text" name="titular_area" x-model="form.titular_area" class="form-input" required>
                             </div>
@@ -177,6 +182,7 @@
             passwordUserId: null,
             passwordUserName: '',
             form: {
+                name: '',
                 adscripcion: '',
                 unidad: '',
                 lugar: '',
@@ -191,6 +197,7 @@
             },
             openEdit(d) {
                 this.editUserId = d.id;
+                this.form.name = d.name;
                 this.form.adscripcion = d.adscripcion;
                 this.form.unidad = d.unidad;
                 this.form.lugar = d.lugar;

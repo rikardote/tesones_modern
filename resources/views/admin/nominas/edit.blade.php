@@ -13,7 +13,7 @@
     <div class="max-w-lg">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('info_nominas.update', $nomina) }}" method="POST">
+                <form action="{{ route('info_nominas.update', $nomina ?? null) }}" method="POST">
                     @csrf
                     @method('PATCH')
                     @include('admin.nominas.form')
