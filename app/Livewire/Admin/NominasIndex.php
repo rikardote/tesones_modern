@@ -5,9 +5,13 @@ namespace App\Livewire\Admin;
 use App\Models\Nomina;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class NominasIndex extends Component
 {
+    use WithPagination;
+
+    protected \$paginationTheme = 'tailwind';
     // Modal state
     public bool $showModal = false;
     public bool $isEditing = false;
@@ -131,7 +135,7 @@ class NominasIndex extends Component
     public function render()
     {
         return view('livewire.admin.nominas-index', [
-            'nominas' => Nomina::orderByDesc('fecha_emision')->get(),
+            'nominas' => Nomina::orderByDesc('fecha_emision')->paginate(15),
         ]);
     }
 }

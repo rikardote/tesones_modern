@@ -85,6 +85,13 @@
                 </tbody>
             </table>
         </div>
+
+        {{-- Pagination --}}
+        @if ($nominas->hasPages())
+            <div class="p-6 border-t border-slate-100 bg-slate-50/30">
+                {{ $nominas->links('vendor.pagination.tailwind') }}
+            </div>
+        @endif
     </div>
 
     {{-- Modals --}}
