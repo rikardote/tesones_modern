@@ -3,15 +3,19 @@
 @section('title', 'Nóminas')
 
 @section('content')
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6" x-data="nominaManager">
-        <h1 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
-            <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
-            Nóminas
-        </h1>
-        <button @click="openCreate()" class="btn btn-primary">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            Crear nómina
-        </button>
+    {{-- El contenedor principal ahora tiene el x-data para que la tabla y el modal se comuniquen --}}
+    <div x-data="nominaManager">
+
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+            <h1 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
+                <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+                Nóminas
+            </h1>
+            <button @click="openCreate()" class="btn btn-primary">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                Crear nómina
+            </button>
+        </div>
 
         {{-- MODAL CREAR/EDITAR NÓMINA --}}
         <div x-show="modal" x-cloak
@@ -24,7 +28,12 @@
                  @click.stop>
                 <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
                     <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <svg class="w-5 h-5" :class="editing ? 'text-amber-500' : 'text-blue-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                        <svg class="w-5 h-5" :class="editing ? 'text-amber-500' : 'text-blue-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            {{-- Icono para Nueva Nómina (Signo más) --}}
+                            <path x-show="!editing" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            {{-- Icono para Editar (Lápiz) --}}
+                            <path x-show="editing" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                        </svg>
                         <span x-text="editing ? 'Editar Nómina' : 'Nueva Nómina'"></span>
                     </h2>
                     <button @click="modal = false" class="p-1 hover:bg-gray-100 rounded-lg transition-colors">
@@ -32,22 +41,21 @@
                     </button>
                 </div>
                 <div class="px-6 py-4">
-                    <form :action="formAction" method="POST">
+                    <form @submit.prevent="submitForm" method="POST">
                         @csrf
                         <input type="hidden" name="_method" :value="editing ? 'PATCH' : 'POST'">
+
                         <div class="space-y-4">
                             <div>
-                                <label for="nomina" class="form-label">Nómina</label>
-                                <input type="text" name="nomina" id="nomina" class="form-input" x-model="form.nomina" required>
+                                <label class="form-label">Nómina</label>
+                                <input type="text" name="nomina" class="form-input" x-model="form.nomina" required>
                                 <p class="text-xs text-gray-400 mt-1">Ejemplo: ORDINARIA, QNA 01 DEL 2017</p>
                             </div>
                             <div>
-                                <label for="fecha_emision" class="form-label">Fecha de emisión</label>
-                                <input type="date" name="fecha_emision" id="fecha_emision" class="form-input" x-model="form.fecha_emision" required>
-                            </div>
-                            <div>
-                                <label for="comentario" class="form-label">Comentario</label>
-                                <input type="text" name="comentario" id="comentario" class="form-input" x-model="form.comentario">
+                                <label class="form-label">Fecha de emisión</label>
+                                <input type="text" name="fecha_emision" class="form-input"
+                                       x-ref="fechaInput"
+                                       x-model="form.fecha_emision" required>
                             </div>
                         </div>
                         <div class="flex justify-end gap-2 mt-6">
@@ -61,40 +69,58 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="card">
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>FECHA DE EMISIÓN</th>
-                        <th>NÓMINA</th>
-                        <th class="text-center">ACCIONES</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100">
-                    @foreach($nominas as $nomina)
+
+        {{-- TABLA DE RESULTADOS --}}
+        <div class="card">
+            <div class="table-responsive">
+                 @if ($errors->any())
+                    <div class="bg-red-100 text-red-700 p-4 mb-4 rounded">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td><span class="font-medium">{{ fecha_dmy($nomina->fecha_emision) }}</span></td>
-                            <td>{{ $nomina->nomina }}</td>
-                            <td>
-                                <div class="flex justify-center gap-1">
-                                    <button @click="openEdit({{ $nomina->id }}, '{{ $nomina->nomina }}', '{{ $nomina->fecha_emision?->format('Y-m-d') }}', '{{ $nomina->comentario ?? '' }}')"
-                                            class="btn btn-sm btn-warning" title="Editar">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
-                                    </button>
-                                    <a href="{{ route('admin.info_nominas.destroy', $nomina) }}"
-                                       onclick="return confirm('¿Seguro de borrar esta Nómina?');"
-                                       class="btn btn-sm btn-danger">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                                    </a>
-                                </div>
-                            </td>
+                            <th>FECHA DE EMISIÓN</th>
+                            <th>NÓMINA</th>
+                            <th class="text-center">ACCIONES</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        @foreach($nominas as $nomina)
+                            <tr>
+                                <td><span class="font-medium">{{ fecha_dmy($nomina->fecha_emision) }}</span></td>
+                                <td>{{ $nomina->nomina }}</td>
+                                <td>
+                                    <div class="flex justify-center gap-1">
+                                        {{-- El botón ahora puede acceder a openEdit() --}}
+                                        <button
+                                                data-id="{{ $nomina->id }}"
+                                                data-nomina="{{ $nomina->nomina }}"
+                                                data-fecha="{{ $nomina->fecha_emision?->format('d/m/Y') }}"
+                                                @click="openEdit($event.currentTarget.dataset)"
+                                                class="btn btn-sm btn-warning" title="Editar">
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                                        </button>
+                                        <form action="{{ route('admin.info_nominas.destroy', $nomina) }}" method="POST" onsubmit="return confirm('¿Seguro de borrar esta Nómina?');" class="inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 @endsection
@@ -108,27 +134,71 @@
             editing: false,
             form: {
                 nomina: '',
-                fecha_emision: '',
-                comentario: '',
+                fecha_emision: ''
             },
             editId: null,
-            get formAction() {
-                return this.editing ? `/info_nominas/${this.editId}` : '/info_nominas';
+            _fp: null,
+
+            init() {
+                this.$watch('modal', (open) => {
+                    if (open) {
+                        this.$nextTick(() => this.initFlatpickr());
+                    } else if (this._fp) {
+                        this._fp.destroy();
+                        this._fp = null;
+                    }
+                });
             },
+
+            initFlatpickr() {
+                const el = this.$refs.fechaInput;
+                if (!el || this._fp) return;
+                el.value = this.form.fecha_emision || '';
+                this._fp = flatpickr(el, {
+                    dateFormat: 'd/m/Y',
+                    locale: 'es',
+                    allowInput: true,
+                    onChange: (dates, dateStr) => {
+                        this.form.fecha_emision = dateStr;
+                    },
+                });
+                if (this.form.fecha_emision) {
+                    this._fp.setDate(this.form.fecha_emision);
+                }
+            },
+
             openCreate() {
                 this.editing = false;
                 this.editId = null;
                 this.form.nomina = '';
                 this.form.fecha_emision = '';
-                this.form.comentario = '';
                 this.modal = true;
             },
-            openEdit(id, nomina, fecha, comentario) {
+
+            submitForm() {
+                const url = this.editing ? `/info_nominas/${this.editId}` : '/info_nominas';
+                const data = new FormData();
+                data.append('_token', document.querySelector('[name=_token]').value);
+                data.append('_method', this.editing ? 'PATCH' : 'POST');
+                data.append('nomina', this.form.nomina);
+                data.append('fecha_emision', this.form.fecha_emision);
+
+                fetch(url, {
+                    method: 'POST',
+                    body: data,
+                    redirect: 'manual',
+                }).then(res => {
+                    window.location.href = '/info_nominas';
+                }).catch(() => {
+                    window.location.href = '/info_nominas';
+                });
+            },
+
+            openEdit(d) {
                 this.editing = true;
-                this.editId = id;
-                this.form.nomina = nomina;
-                this.form.fecha_emision = fecha;
-                this.form.comentario = comentario;
+                this.editId = d.id;
+                this.form.nomina = d.nomina;
+                this.form.fecha_emision = d.fecha;
                 this.modal = true;
             },
         }));

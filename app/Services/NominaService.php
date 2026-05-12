@@ -47,4 +47,9 @@ readonly class NominaService
         $nomina->delete();
         $this->flash->error("La nómina {$nomina->nomina} ha sido borrada con éxito");
     }
+
+    public function flashError(string $message): void
+    {
+        $this->flash->error($message);
+    }
 }

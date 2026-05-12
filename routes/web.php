@@ -48,7 +48,7 @@ Route::get('todas', [TesonesController::class, 'todas'])->name('todas.index');
 
 // Nóminas (admin - protected by controller)
 Route::resource('info_nominas', NominasController::class);
-Route::get('info_nominas/{nomina}/destroy', [NominasController::class, 'destroy'])->name('admin.info_nominas.destroy');
+Route::match(['get', 'delete'], 'info_nominas/{info_nomina}/destroy', [NominasController::class, 'destroy'])->name('admin.info_nominas.destroy');
 
 // Usuarios
 Route::resource('usuarios', UsersController::class)->only(['index', 'edit']);

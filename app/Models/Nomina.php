@@ -8,7 +8,7 @@ class Nomina extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['fecha_emision', 'nomina', 'comentario'];
+    protected $fillable = ['fecha_emision', 'nomina'];
 
     protected function casts(): array
     {

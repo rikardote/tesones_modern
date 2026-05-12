@@ -1,6 +1,8 @@
 @import "tailwindcss";
-
 @plugin "@tailwindcss/forms";
+
+/* Flatpickr datepicker */
+@import 'flatpickr/dist/flatpickr.min.css';
 
 /* ===== Alpine.js x-cloak ===== */
 [x-cloak] { display: none !important; }

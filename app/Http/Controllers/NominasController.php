@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreNominaRequest;
 use App\Models\Nomina;
 use App\Services\NominaService;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -41,21 +42,29 @@ final class NominasController extends Controller
         return redirect()->route('info_nominas.index');
     }
 
-    public function edit(Nomina $nomina): View
+    public function edit(Nomina $info_nomina): View
     {
-        return view('admin.nominas.edit', compact('nomina'));
+        return view('admin.nominas.edit', ['nomina' => $info_nomina]);
     }
 
-    public function update(StoreNominaRequest $request, Nomina $nomina): RedirectResponse
+    public function update(StoreNominaRequest $request, Nomina $info_nomina): RedirectResponse
     {
-        $this->nominaService->update($nomina, $request->validated());
+        $this->nominaService->update($info_nomina, $request->validated());
 
         return redirect()->route('info_nominas.index');
     }
 
-    public function destroy(Nomina $nomina): RedirectResponse
+    public function destroy(Nomina $info_nomina): RedirectResponse
     {
-        $this->nominaService->delete($nomina);
+        try {
+            $this->nominaService->delete($info_nomina);
+        } catch (QueryException $e) {
+            if ($e->getCode() === "23000") { // Integrity constraint violation
+                $this->nominaService->flashError("No se puede eliminar la nómina porque tiene Tesones asociados. Debe eliminar o reasignar los Tesones primero.");
+            } else {
+                $this->nominaService->flashError("Error al intentar eliminar la nómina: " . $e->getMessage());
+            }
+        }
 
         return redirect()->route('info_nominas.index');
     }
