@@ -56,7 +56,7 @@ if (!function_exists('getYear')) {
 }
 
 if (!function_exists('flash')) {
-    function flash(string $message = null): FlashService
+    function flash(?string $message = null): FlashService
     {
         $flash = app(FlashService::class);
 

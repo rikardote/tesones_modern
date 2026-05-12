@@ -50,6 +50,7 @@
 
     .logo {
         width: 180px;
+        background-color: #fff;
     }
 
     .titulo {
