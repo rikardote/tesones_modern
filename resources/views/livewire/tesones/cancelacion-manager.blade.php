@@ -6,7 +6,7 @@
                 <ol class="flex items-center space-x-2">
                     <li><a href="{{ route('tesones.index') }}" class="hover:text-blue-600 transition-colors">Mis Tesones</a></li>
                     <li><svg class="w-3 h-3 mx-1 text-slate-300" fill="currentColor" viewBox="0 0 20 20"><path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"/></svg></li>
-                    <li><a href="{{ route('tesones.show', $teson) }}" class="hover:text-blue-600 transition-colors">Expediente #{{ $teson->id }}</a></li>
+                    <li><a href="{{ route('tesones.show', $teson) }}" class="hover:text-blue-600 transition-colors">Tesón #{{ $teson->id }}</a></li>
                     <li><svg class="w-3 h-3 mx-1 text-slate-300" fill="currentColor" viewBox="0 0 20 20"><path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"/></svg></li>
                     <li class="text-slate-800 font-bold">Captura de Cancelaciones</li>
                 </ol>
@@ -23,7 +23,7 @@
         
         <a href="{{ route('tesones.show', $teson) }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white hover:bg-slate-50 text-slate-700 font-bold rounded-xl shadow-sm border border-slate-200 transition-all">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
-            Volver al Expediente
+            Volver al Tesón
         </a>
     </div>
 

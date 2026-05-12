@@ -11,7 +11,7 @@ class NominasIndex extends Component
 {
     use WithPagination;
 
-    protected \$paginationTheme = 'tailwind';
+    protected $paginationTheme = 'tailwind';
     // Modal state
     public bool $showModal = false;
     public bool $isEditing = false;

@@ -1,18 +1,22 @@
 <?php
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 /*
 |--------------------------------------------------------------------------
 | Test Case
 |--------------------------------------------------------------------------
-|
-| The closure you provide to your test functions is always bound to a specific PHPUnit test
-| case class. By default, that class is "PHPUnit\Framework\TestCase". Of course, you may
-| need to change it using the "pest()" function to bind different classes or traits.
-|
 */
+
+// Safety check: evitar que RefreshDatabase borre la BD real
+if (app()->environment('testing') && DB::getDriverName() !== 'sqlite') {
+    throw new \RuntimeException(
+        'Los tests deben ejecutarse con SQLite en memoria. ' .
+        'Verifica que phpunit.xml tenga DB_CONNECTION=sqlite y DB_DATABASE=:memory:'
+    );
+}
 
 pest()->extend(TestCase::class)
     ->use(RefreshDatabase::class)

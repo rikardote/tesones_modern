@@ -187,31 +187,11 @@
                 </div>
             </div>
 
-            {{-- Observaciones & Signatures --}}
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-6 border-t border-slate-100">
-                <div class="lg:col-span-1 space-y-4">
-                    <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100">
-                        <span class="text-[10px] font-black text-amber-700 uppercase tracking-widest block mb-2">Observaciones</span>
-                        <p class="text-sm text-amber-900 leading-relaxed italic">{{ $teson->observaciones ?: 'Ninguna observación registrada.' }}</p>
-                    </div>
-                    <p class="text-[9px] text-slate-400 leading-relaxed uppercase font-bold tracking-tighter text-justify">
-                        "DECLARO BAJO PROTESTA; DECIR LA VERDAD QUE LOS DATOS Y FIRMAS CONTENIDOS EN ESTE FORMATO, SON VERÍDICAS Y MANIFESTAMOS TENER CONOCIMIENTO DE LAS SANCIONES QUE SE APLICARÁN EN CASO CONTRARIO"
-                    </p>
-                </div>
-                
-                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="flex flex-col items-center justify-end h-32 text-center">
-                        <div class="w-full border-t border-slate-800 pt-3">
-                            <strong class="text-sm text-slate-900 uppercase block mb-1">{{ $teson->user->titular_area }}</strong>
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Titular del Área</span>
-                        </div>
-                    </div>
-                    <div class="flex flex-col items-center justify-end h-32 text-center">
-                        <div class="w-full border-t border-slate-800 pt-3">
-                            <strong class="text-sm text-slate-900 uppercase block mb-1">{{ $teson->user->pagador_habilitado }}</strong>
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pagador Habilitado</span>
-                        </div>
-                    </div>
+            {{-- Observaciones --}}
+            <div class="pt-6 border-t border-slate-100">
+                <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100">
+                    <span class="text-[10px] font-black text-amber-700 uppercase tracking-widest block mb-2">Observaciones</span>
+                    <p class="text-sm text-amber-900 leading-relaxed italic">{{ $teson->observaciones ?: 'Ninguna observación registrada.' }}</p>
                 </div>
             </div>
         </div>
