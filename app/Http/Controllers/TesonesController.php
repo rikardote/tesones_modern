@@ -36,9 +36,8 @@ final class TesonesController extends Controller
     public function show(int $id): View
     {
         $teson = $this->tesonService->findOrFail($id, ['nomina', 'user']);
-        $cancelaciones = $this->cancelacionService->listForTeson($teson);
 
-        return view('tesones.show', compact('teson', 'cancelaciones'));
+        return view('tesones.show', compact('teson'));
     }
 
     public function create(): View

@@ -1,8 +1,7 @@
 import './bootstrap';
-import Alpine from 'alpinejs';
 import flatpickr from 'flatpickr';
 
-window.Alpine = Alpine;
+// Exponer flatpickr globalmente
 window.flatpickr = flatpickr;
 
 // Registrar locale español manualmente
@@ -22,4 +21,5 @@ flatpickr.l10ns.es = {
     toggleTitle: 'Click para alternar',
 };
 
-Alpine.start();
+// Alpine es gestionado por Livewire — NO inicializar aquí.
+// Livewire 4 incluye Alpine internamente y lo arranca solo.
