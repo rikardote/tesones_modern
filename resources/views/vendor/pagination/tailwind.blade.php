@@ -14,12 +14,14 @@
         <div class="flex items-center gap-1 flex-wrap justify-center">
             {{-- Previous --}}
             @if ($paginator->onFirstPage())
-                <span class="flex items-center justify-center w-9 h-9 rounded-lg text-sm text-gray-300 cursor-not-allowed">
+                <span class="flex items-center gap-1 px-3 py-2 rounded-lg text-sm text-gray-300 cursor-not-allowed">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                    <span class="hidden sm:inline">Anterior</span>
                 </span>
             @else
-                <a href="{{ $paginator->previousPageUrl() }}" rel="prev" class="flex items-center justify-center w-9 h-9 rounded-lg text-sm text-gray-600 hover:bg-gray-100 transition-colors">
+                <a href="{{ $paginator->previousPageUrl() }}" rel="prev" class="flex items-center gap-1 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                    <span class="hidden sm:inline">Anterior</span>
                 </a>
             @endif
 
@@ -27,7 +29,7 @@
             @foreach ($elements as $element)
                 {{-- Separador "..." --}}
                 @if (is_string($element))
-                    <span class="flex items-center justify-center w-9 h-9 rounded-lg text-sm text-gray-400 font-medium">{{ $element }}</span>
+                    <span class="flex items-center justify-center min-w-[2.25rem] h-9 rounded-lg text-sm text-gray-400 font-medium">{{ $element }}</span>
                 @endif
 
                 {{-- Links de páginas --}}
@@ -46,11 +48,13 @@
 
             {{-- Next --}}
             @if ($paginator->hasMorePages())
-                <a href="{{ $paginator->nextPageUrl() }}" rel="next" class="flex items-center justify-center w-9 h-9 rounded-lg text-sm text-gray-600 hover:bg-gray-100 transition-colors">
+                <a href="{{ $paginator->nextPageUrl() }}" rel="next" class="flex items-center gap-1 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 transition-colors">
+                    <span class="hidden sm:inline">Siguiente</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </a>
             @else
-                <span class="flex items-center justify-center w-9 h-9 rounded-lg text-sm text-gray-300 cursor-not-allowed">
+                <span class="flex items-center gap-1 px-3 py-2 rounded-lg text-sm text-gray-300 cursor-not-allowed">
+                    <span class="hidden sm:inline">Siguiente</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </span>
             @endif
