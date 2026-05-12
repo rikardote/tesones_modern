@@ -34,9 +34,9 @@ class CancelacionManager extends Component
         // Conditional validation for numero_cheque based on Teson payment type
         $rangeRule = "between:{$this->teson->folio_inicial},{$this->teson->folio_final}";
 
-        if ($this->teson->forma_pago == FormaPago::DEBITO_BBVA->value || $this->teson->forma_pago == FormaPago::DEBITO_SPEI->value) {
-            $rules['numero_cheque'] = ['required', 'digits:7', $rangeRule];
-        } elseif ($this->teson->forma_pago == FormaPago::CHEQUES->value || $this->teson->forma_pago == FormaPago::PENSION_ALIMENTICIA->value) {
+        if ($this->teson->remision_nomina == FormaPago::DEBITO_BBVA->value || $this->teson->remision_nomina == FormaPago::DEBITO_SPEI->value) {
+            $rules['numero_cheque'] = ['required', 'numeric', 'digits:7', $rangeRule];
+        } elseif ($this->teson->remision_nomina == FormaPago::CHEQUES->value || $this->teson->remision_nomina == FormaPago::PENSION_ALIMENTICIA->value) {
             $rules['numero_cheque'] = ['required', 'numeric', 'min:1000', $rangeRule];
         } else {
             $rules['numero_cheque'] = ['required', 'numeric', $rangeRule];

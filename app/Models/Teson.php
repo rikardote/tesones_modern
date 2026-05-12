@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Teson extends Model
 {
     protected $fillable = [
-        'remision_nomina', 'tipo_personal', 'nomina_id',
+        'user_id', 'remision_nomina', 'tipo_personal', 'nomina_id',
         'folio_inicial', 'folio_final', 'fecha_elaboracion', 'observaciones',
     ];
 

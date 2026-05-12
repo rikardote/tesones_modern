@@ -28,6 +28,7 @@ if (!function_exists('fecha_dmy')) {
 if (!function_exists('getMonth')) {
     function getMonth(string|Carbon|\DateTime $date): string
     {
+        if (empty($date)) return '';
         $dt = $date instanceof Carbon ? $date : Carbon::parse($date);
         $months = [
             1 => 'ENERO', 2 => 'FEBRERO', 3 => 'MARZO',
