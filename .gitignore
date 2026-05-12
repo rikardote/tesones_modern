@@ -25,3 +25,8 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Archivos de prueba y datos
+*.sql
+test_val.php
+test_val2.php
