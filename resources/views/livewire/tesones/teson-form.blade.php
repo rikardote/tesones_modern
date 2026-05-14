@@ -34,6 +34,62 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {{-- Form Side --}}
         <div class="lg:col-span-8 space-y-6">
+            {{-- Section 0: Centro de Trabajo --}}
+            <div class="card overflow-hidden border-none shadow-xl shadow-slate-200/60 ring-1 ring-slate-200">
+                <div class="p-1 bg-gradient-to-r from-emerald-500 to-teal-600"></div>
+                <div class="card-body p-8">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-black text-xs">0</div>
+                        <h2 class="text-lg font-black text-slate-800 uppercase tracking-tight">Centro de Trabajo</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="md:col-span-2">
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 block">Seleccionar Centro Autorizado</label>
+                            <select wire:model.live="workplace_id" 
+                                    class="form-select w-full rounded-xl border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 font-bold @error('workplace_id') ring-2 ring-red-500 @enderror">
+                                <option value="">--- Seleccione su centro de adscripción ---</option>
+                                @foreach($workplaces as $w)
+                                    <option value="{{ $w->id }}">{{ $w->adscripcion }} - {{ $w->lugar }}</option>
+                                @endforeach
+                            </select>
+                            @error('workplace_id') <p class="mt-2 text-xs font-bold text-red-500">{{ $message }}</p> @enderror
+                        </div>
+
+                        @if($workplace_id)
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <span class="text-[9px] font-black text-slate-400 uppercase block">Adscripción</span>
+                                    <span class="text-xs font-bold text-slate-700">{{ $adscripcion_snapshot }}</span>
+                                </div>
+                                <div>
+                                    <span class="text-[9px] font-black text-slate-400 uppercase block">Unidad</span>
+                                    <span class="text-xs font-bold text-slate-700">{{ $unidad_snapshot }}</span>
+                                </div>
+                                <div>
+                                    <span class="text-[9px] font-black text-slate-400 uppercase block">Lugar</span>
+                                    <span class="text-xs font-bold text-slate-700">{{ $lugar_snapshot }}</span>
+                                </div>
+                            </div>
+
+                            <div class="space-y-1">
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block">Titular del Área</label>
+                                <input type="text" wire:model="titular_area_snapshot" 
+                                       class="form-input w-full rounded-xl border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 font-bold">
+                                @error('titular_area_snapshot') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+                            </div>
+
+                            <div class="space-y-1">
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block">Pagador Habilitado</label>
+                                <input type="text" wire:model="pagador_habilitado_snapshot" 
+                                       class="form-input w-full rounded-xl border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 font-bold">
+                                @error('pagador_habilitado_snapshot') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
             {{-- Section 1: Nomina --}}
             <div class="card overflow-hidden border-none shadow-xl shadow-slate-200/60 ring-1 ring-slate-200">
                 <div class="p-1 bg-gradient-to-r from-blue-600 to-indigo-600"></div>

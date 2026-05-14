@@ -94,7 +94,7 @@
                 </div>
                 <div class="space-y-1">
                     <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Clave Adscripción</span>
-                    <p class="text-sm font-bold text-slate-800 uppercase">{{ $teson->user->adscripcion }}</p>
+                    <p class="text-sm font-bold text-slate-800 uppercase">{{ $teson->adscripcion_snapshot }}</p>
                 </div>
                 <div class="space-y-1">
                     <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Rango de Folios</span>
@@ -108,11 +108,11 @@
                 </div>
                 <div class="space-y-1">
                     <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Lugar</span>
-                    <p class="text-sm font-bold text-slate-800 uppercase">{{ $teson->user->lugar }}</p>
+                    <p class="text-sm font-bold text-slate-800 uppercase">{{ $teson->lugar_snapshot }}</p>
                 </div>
                 <div class="space-y-1">
                     <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Unidad</span>
-                    <p class="text-sm font-bold text-slate-800 uppercase">{{ $teson->user->unidad }}</p>
+                    <p class="text-sm font-bold text-slate-800 uppercase">{{ $teson->unidad_snapshot }}</p>
                 </div>
             </div>
 

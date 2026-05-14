@@ -42,6 +42,10 @@
                         <p class="text-slate-400 text-xs mt-1">Modifique los datos de oficina y firmas del usuario.</p>
                     </div>
                     
+                    <div class="mb-10 p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                        @livewire('admin.user-workplace-manager', ['user' => $user])
+                    </div>
+                    
                     @include('users.form')
                 </div>
 

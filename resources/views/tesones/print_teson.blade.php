@@ -213,7 +213,7 @@
         </td>
 
         <td>
-            {{ $teson->user->adscripcion }}
+            {{ $teson->adscripcion_snapshot }}
         </td>
 
     </tr>
@@ -238,7 +238,7 @@
         </td>
 
         <td>
-            {{ $teson->user->lugar }}
+            {{ $teson->lugar_snapshot }}
         </td>
 
     </tr>
@@ -250,7 +250,7 @@
         </td>
 
         <td>
-            {{ $teson->user->unidad }}
+            {{ $teson->unidad_snapshot }}
         </td>
 
         <td>
@@ -426,7 +426,7 @@
                 <br><br><br>
 
                 <span class="firma-linea">
-                    {{ $teson->user->titular_area }}
+                    {{ $teson->titular_area_snapshot }}
                 </span>
 
             </td>
@@ -445,7 +445,7 @@
                 <br><br><br>
 
                 <span class="firma-linea">
-                    {{ $teson->user->pagador_habilitado }}
+                    {{ $teson->pagador_habilitado_snapshot }}
                 </span>
 
             </td>

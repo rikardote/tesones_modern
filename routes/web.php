@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NominasController;
 use App\Http\Controllers\TesonesController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\Admin\WorkplaceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,6 +51,9 @@ Route::get('todas', [TesonesController::class, 'todas'])->name('todas.index');
 Route::resource('info_nominas', NominasController::class);
 Route::match(['get', 'delete'], 'info_nominas/{info_nomina}/destroy', [NominasController::class, 'destroy'])->name('admin.info_nominas.destroy');
 
+// Centros de Trabajo (admin)
+Route::resource('workplaces', WorkplaceController::class)->names('admin.workplaces');
+
 // Usuarios
 Route::resource('usuarios', UsersController::class)->only(['index', 'edit']);
 Route::patch('usuarios', [UsersController::class, 'update'])->name('usuarios.update');
@@ -58,5 +62,5 @@ Route::get('usuarios/{user}/borrar', [UsersController::class, 'borrar'])->name('
 Route::get('usuarios/{user}/password', [UsersController::class, 'editPassword'])->name('usuarios.edit.password');
 Route::patch('usuarios/{user}/password', [UsersController::class, 'updatePassword'])->name('usuarios.update.password');
 Route::get('users_ver/{user}', [UsersController::class, 'verPorUsuario'])->name('usuario.ver');
-Route::get('usuarios/{user}/editar', [UsersController::class, 'editAdmin'])->name('usuarios.edit.admin');
+Route::get('usuarios/{user}/editar', [UsersController::class, 'editAdmin'])->name('admin.usuarios.edit');
 Route::patch('usuarios/{user}/actualizar', [UsersController::class, 'updateAdmin'])->name('usuarios.update.admin');

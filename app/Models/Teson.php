@@ -11,6 +11,9 @@ class Teson extends Model
     protected $fillable = [
         'user_id', 'remision_nomina', 'tipo_personal', 'nomina_id',
         'folio_inicial', 'folio_final', 'fecha_elaboracion', 'observaciones',
+        'adscripcion_snapshot', 'unidad_snapshot', 'lugar_snapshot',
+        'titular_area_snapshot', 'pagador_habilitado_snapshot',
+        'workplace_id',
     ];
 
     protected function casts(): array
@@ -37,6 +40,11 @@ class Teson extends Model
     public function cancelaciones(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Cancelacion::class);
+    }
+
+    public function workplace(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Workplace::class);
     }
 
     public function getFormaPagoLabelAttribute(): string

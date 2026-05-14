@@ -21,6 +21,14 @@ class TesonForm extends Component
     public string $folio_final = '';
     public string $observaciones = '';
 
+    // Workplace fields
+    public string $workplace_id = '';
+    public string $adscripcion_snapshot = '';
+    public string $unidad_snapshot = '';
+    public string $lugar_snapshot = '';
+    public string $titular_area_snapshot = '';
+    public string $pagador_habilitado_snapshot = '';
+
     protected function rules(): array
     {
         $rules = [
@@ -28,6 +36,9 @@ class TesonForm extends Component
             'tipo_personal'   => ['required', 'integer', 'in:' . implode(',', array_keys(TipoPersonal::selectOptions()))],
             'remision_nomina' => ['required', 'integer', 'in:' . implode(',', array_keys(FormaPago::selectOptions()))],
             'observaciones'   => ['nullable', 'string', 'max:500'],
+            'workplace_id'    => ['required', 'exists:workplaces,id'],
+            'titular_area_snapshot'      => ['nullable', 'string', 'max:255'],
+            'pagador_habilitado_snapshot' => ['nullable', 'string', 'max:255'],
         ];
 
         $formaPago = (string) $this->remision_nomina;
@@ -80,8 +91,21 @@ class TesonForm extends Component
             $this->folio_inicial   = (string) ($this->teson->folio_inicial ?? '');
             $this->folio_final     = (string) ($this->teson->folio_final ?? '');
             $this->observaciones   = (string) ($this->teson->observaciones ?? '');
+            
+            $this->workplace_id                = (string) ($this->teson->workplace_id ?? '');
+            $this->adscripcion_snapshot        = (string) ($this->teson->adscripcion_snapshot ?? '');
+            $this->unidad_snapshot             = (string) ($this->teson->unidad_snapshot ?? '');
+            $this->lugar_snapshot              = (string) ($this->teson->lugar_snapshot ?? '');
+            $this->titular_area_snapshot       = (string) ($this->teson->titular_area_snapshot ?? '');
+            $this->pagador_habilitado_snapshot = (string) ($this->teson->pagador_habilitado_snapshot ?? '');
         } else {
             $this->teson = new Teson();
+            
+            // Auto-select if only one workplace
+            $assignedWorkplaces = auth()->user()->workplaces;
+            if ($assignedWorkplaces->count() === 1) {
+                $this->selectWorkplace($assignedWorkplaces->first()->id);
+            }
         }
     }
 
@@ -98,6 +122,25 @@ class TesonForm extends Component
 
         // Validar el campo específico que cambió
         $this->validateOnly($propertyName);
+
+        if ($propertyName === 'workplace_id') {
+            $this->selectWorkplace($this->workplace_id);
+        }
+    }
+
+    public function selectWorkplace($id)
+    {
+        if (!$id) return;
+        
+        $workplace = \App\Models\Workplace::find($id);
+        if ($workplace) {
+            $this->workplace_id = (string) $workplace->id;
+            $this->adscripcion_snapshot = $workplace->adscripcion;
+            $this->unidad_snapshot = $workplace->unidad;
+            $this->lugar_snapshot = $workplace->lugar;
+            $this->titular_area_snapshot = $workplace->titular_area;
+            $this->pagador_habilitado_snapshot = $workplace->pagador_habilitado;
+        }
     }
 
     public function save(): void
@@ -105,12 +148,20 @@ class TesonForm extends Component
         $data = $this->validate();
 
         if ($this->isEdit) {
-            $this->teson->update($data);
+            $this->teson->update(array_merge($data, [
+                'adscripcion_snapshot' => $this->adscripcion_snapshot,
+                'unidad_snapshot' => $this->unidad_snapshot,
+                'lugar_snapshot' => $this->lugar_snapshot,
+            ]));
             session()->flash('flash_message', 'Tesón modificado exitosamente');
             session()->flash('flash_level', 'info');
             $this->redirectRoute('tesones.show', $this->teson->id);
         } else {
-            $teson = new Teson($data);
+            $teson = new Teson(array_merge($data, [
+                'adscripcion_snapshot' => $this->adscripcion_snapshot,
+                'unidad_snapshot' => $this->unidad_snapshot,
+                'lugar_snapshot' => $this->lugar_snapshot,
+            ]));
             $teson->user_id = auth()->id();
             $teson->fecha_elaboracion = Carbon::today();
             $teson->save();
@@ -127,6 +178,7 @@ class TesonForm extends Component
             'nominas'      => Nomina::all()->sortByDesc('fecha_emision')->pluck('Fullnomina', 'id')->toArray(),
             'tiposPersonal'=> TipoPersonal::selectOptions(),
             'formasPago'   => FormaPago::selectOptions(),
+            'workplaces'   => auth()->user()->workplaces,
         ]);
     }
 }
