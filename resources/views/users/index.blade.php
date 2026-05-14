@@ -3,7 +3,7 @@
 @section('title', 'Mi Perfil de Usuario')
 
 @section('content')
-<div class="fade-in max-w-4xl mx-auto py-8 px-4" x-data="{ modal: false }">
+<div class="fade-in max-w-4xl mx-auto py-8 px-4" x-data="{ modal: @if($errors->any()) true @else false @endif }">
     {{-- Page header --}}
     <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
         <div>
@@ -21,6 +21,31 @@
                 Perfil de Usuario
             </h1>
         </div>
+
+        @if (session('flash_message'))
+            <div class="px-6 py-4 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center gap-4 text-emerald-800 mb-6 animate-in fade-in slide-in-from-top-4 duration-500">
+                <div class="w-8 h-8 rounded-lg bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-200">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <div class="text-sm font-bold uppercase tracking-tight flex-1">{{ session('flash_message') }}</div>
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div class="px-6 py-4 bg-red-50 border border-red-100 rounded-2xl flex flex-col gap-2 text-red-800 mb-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-8 h-8 rounded-lg bg-red-500 text-white flex items-center justify-center shadow-lg shadow-red-200">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <div class="text-sm font-black uppercase tracking-tight">Se encontraron errores:</div>
+                </div>
+                <ul class="list-disc list-inside text-xs font-bold pl-12">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         
         <button @click="modal = true" class="group inline-flex items-center gap-2 px-6 py-3 bg-white hover:bg-slate-50 text-slate-900 font-bold rounded-xl shadow-sm border border-slate-200 transition-all duration-200 hover:scale-[1.02] active:scale-95">
             <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
