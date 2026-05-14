@@ -29,19 +29,6 @@
         </a>
     </div>
 
-    {{-- Flash messages --}}
-    @if (session('flash_message'))
-        <div x-data="{ show: true }"
-             x-show="show"
-             x-init="setTimeout(() => show = false, 5000)"
-             x-transition
-             class="flex items-center gap-3 p-4 mb-8 bg-{{ session('flash_level', 'blue') === 'info' ? 'blue' : (session('flash_level') === 'danger' ? 'red' : 'emerald') }}-50 border border-{{ session('flash_level', 'blue') === 'info' ? 'blue' : (session('flash_level') === 'danger' ? 'red' : 'emerald') }}-100 rounded-2xl text-{{ session('flash_level', 'blue') === 'info' ? 'blue' : (session('flash_level') === 'danger' ? 'red' : 'emerald') }}-800">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            <div class="text-sm font-semibold flex-1">{{ session('flash_message') }}</div>
-            <button @click="show = false" class="p-1 hover:bg-black/5 rounded-lg">&times;</button>
-        </div>
-    @endif
-
     {{-- Delete confirmation --}}
     @if ($deleteId)
         <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm" x-data x-transition>

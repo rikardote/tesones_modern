@@ -20,7 +20,6 @@ class CancelacionManager extends Component
     public $clave = '';
     
     public $editingId = null;
-    public $flashMessage = '';
 
     protected function rules()
     {
@@ -79,10 +78,10 @@ class CancelacionManager extends Component
         if ($this->editingId) {
             $cancelacion = Cancelacion::findOrFail($this->editingId);
             $cancelacion->update($data);
-            $this->flashMessage = 'Cancelación actualizada correctamente.';
+            $this->dispatch('toast', message: 'Cancelación actualizada correctamente.', type: 'info');
         } else {
             $this->teson->cancelaciones()->create($data);
-            $this->flashMessage = 'Cancelación agregada correctamente.';
+            $this->dispatch('toast', message: 'Cancelación agregada correctamente.', type: 'success');
         }
 
         $this->resetForm();
@@ -97,14 +96,12 @@ class CancelacionManager extends Component
         $this->numero_cheque = $cancelacion->numero_cheque;
         $this->importe = $cancelacion->importe;
         $this->clave = $cancelacion->clave;
-        
-        $this->flashMessage = '';
     }
 
     public function delete($id)
     {
         Cancelacion::findOrFail($id)->delete();
-        $this->flashMessage = 'Cancelación eliminada.';
+        $this->dispatch('toast', message: 'Cancelación eliminada.', type: 'danger');
         
         if ($this->editingId == $id) {
             $this->resetForm();

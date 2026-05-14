@@ -177,6 +177,69 @@
         </footer>
     </div>
 
+    {{-- Toaster Component --}}
+    <div x-data="{ 
+            toasts: [],
+            add(toast) {
+                const id = Date.now();
+                this.toasts.push({ id, ...toast });
+                setTimeout(() => this.remove(id), toast.duration || 5000);
+            },
+            remove(id) {
+                this.toasts = this.toasts.filter(t => t.id !== id);
+            }
+         }"
+         @toast.window="add($event.detail)"
+         x-init="
+            @if(session('flash_message'))
+                setTimeout(() => add({ 
+                    message: '{{ session('flash_message') }}', 
+                    type: '{{ session('flash_level', 'info') }}' 
+                }), 500);
+            @endif
+         "
+         class="fixed top-6 right-6 z-[9999] flex flex-col gap-3 w-full max-w-sm pointer-events-none">
+        
+        <template x-for="toast in toasts" :key="toast.id">
+            <div x-show="true"
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 translate-x-12"
+                 x-transition:enter-end="opacity-100 translate-x-0"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100 translate-x-0"
+                 x-transition:leave-end="opacity-0 translate-x-8"
+                 class="pointer-events-auto bg-white rounded-2xl shadow-2xl ring-1 ring-slate-200 p-4 flex items-center gap-4 border-l-4 overflow-hidden"
+                 :class="{
+                    'border-emerald-500': toast.type === 'success' || toast.type === 'success',
+                    'border-blue-500': toast.type === 'info',
+                    'border-amber-500': toast.type === 'warning',
+                    'border-red-500': toast.type === 'danger' || toast.type === 'error'
+                 }">
+                
+                <div class="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 shadow-sm"
+                     :class="{
+                        'bg-emerald-100 text-emerald-600': toast.type === 'success',
+                        'bg-blue-100 text-blue-600': toast.type === 'info',
+                        'bg-amber-100 text-amber-600': toast.type === 'warning',
+                        'bg-red-100 text-red-600': toast.type === 'danger' || toast.type === 'error'
+                     }">
+                    <svg x-show="toast.type === 'success'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                    <svg x-show="toast.type === 'info'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <svg x-show="toast.type === 'warning'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                    <svg x-show="toast.type === 'danger' || toast.type === 'error'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+
+                <div class="flex-1 min-w-0">
+                    <p class="text-slate-900 text-xs font-black uppercase tracking-tight truncate" x-text="toast.message"></p>
+                </div>
+
+                <button @click="remove(toast.id)" class="p-1.5 hover:bg-slate-50 rounded-lg text-slate-400 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l18 18"/></svg>
+                </button>
+            </div>
+        </template>
+    </div>
+
     @stack('js')
     @yield('js')
     @livewireScripts

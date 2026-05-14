@@ -22,15 +22,6 @@
             </h1>
         </div>
 
-        @if (session('flash_message'))
-            <div class="px-6 py-4 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center gap-4 text-emerald-800 mb-6 animate-in fade-in slide-in-from-top-4 duration-500">
-                <div class="w-8 h-8 rounded-lg bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-200">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                </div>
-                <div class="text-sm font-bold uppercase tracking-tight flex-1">{{ session('flash_message') }}</div>
-            </div>
-        @endif
-
         @if ($errors->any())
             <div class="px-6 py-4 bg-red-50 border border-red-100 rounded-2xl flex flex-col gap-2 text-red-800 mb-6">
                 <div class="flex items-center gap-4">

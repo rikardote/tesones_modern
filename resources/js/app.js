@@ -23,3 +23,10 @@ flatpickr.l10ns.es = {
 
 // Alpine es gestionado por Livewire — NO inicializar aquí.
 // Livewire 4 incluye Alpine internamente y lo arranca solo.
+
+// Función global para notificaciones (Toaster)
+window.toast = function(message, type = 'info', duration = 5000) {
+    window.dispatchEvent(new CustomEvent('toast', {
+        detail: { message, type, duration }
+    }));
+};

@@ -27,14 +27,6 @@
         </a>
     </div>
 
-    @if($flashMessage)
-        <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 4000)" x-transition class="flex items-center gap-3 p-4 mb-8 bg-emerald-50 border border-emerald-100 rounded-2xl text-emerald-800">
-            <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            <div class="text-sm font-bold flex-1">{{ $flashMessage }}</div>
-            <button @click="show = false" class="p-1 hover:bg-black/5 rounded-lg">&times;</button>
-        </div>
-    @endif
-
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {{-- Capture Form --}}
         <div class="lg:col-span-4 space-y-6">

@@ -26,15 +26,6 @@
         </div>
     </div>
 
-    {{-- Notifications --}}
-    @if (session('flash_message'))
-        <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)" x-transition class="flex items-center gap-3 p-4 mb-8 bg-blue-50 border border-blue-100 rounded-2xl text-blue-800">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            <div class="text-sm font-semibold flex-1">{{ session('flash_message') }}</div>
-            <button @click="show = false" class="p-1 hover:bg-black/5 rounded-lg">&times;</button>
-        </div>
-    @endif
-
     {{-- Filters Toolbar --}}
     <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50 mb-8">
         <div class="flex flex-col lg:flex-row items-center gap-4">
