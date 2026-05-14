@@ -24,8 +24,8 @@
     </div>
 
     {{-- Password Reset Card --}}
-    <div class="card overflow-hidden border-none shadow-2xl shadow-slate-200/60 ring-1 ring-slate-200 bg-white">
-        <div class="p-1 bg-gradient-to-r from-indigo-600 to-purple-600"></div>
+    <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+
         <div class="p-8 md:p-10">
             <div class="mb-8 p-4 bg-indigo-50 rounded-2xl border border-indigo-100 flex items-center gap-4">
                 <div class="w-12 h-12 rounded-full bg-white text-indigo-600 flex items-center justify-center text-xl font-black shadow-sm">
@@ -45,14 +45,14 @@
                     <div>
                         <label for="password" class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 block">Nueva Contraseña Maestra</label>
                         <input type="password" name="password" id="password" 
-                               class="form-input w-full rounded-2xl border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 py-4 transition-all" 
+                               class="block bg-white w-full rounded-2xl border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 py-4 transition-all" 
                                required minlength="6" placeholder="Mínimo 6 caracteres">
                     </div>
 
                     <div>
                         <label for="password-confirm" class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 block">Confirmar Identidad de Clave</label>
                         <input type="password" name="password_confirmation" id="password-confirm" 
-                               class="form-input w-full rounded-2xl border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 py-4 transition-all" 
+                               class="block bg-white w-full rounded-2xl border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 py-4 transition-all" 
                                required minlength="6" placeholder="Repita la nueva contraseña">
                     </div>
                 </div>

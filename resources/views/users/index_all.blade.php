@@ -15,7 +15,7 @@
                 </ol>
             </nav>
             <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
-                <span class="p-2.5 bg-slate-900 text-white rounded-xl shadow-lg shadow-slate-200">
+                <span class="p-2.5 bg-slate-900 text-white rounded-xl">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                 </span>
                 Gestión de Usuarios
@@ -29,7 +29,7 @@
     </div>
 
     {{-- Main Table Card --}}
-    <div class="card overflow-hidden border-none shadow-xl shadow-slate-200/60 ring-1 ring-slate-200 bg-white">
+    <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 <thead>
@@ -44,11 +44,14 @@
                         <tr class="group hover:bg-slate-50/80 transition-colors">
                             <td class="px-6 py-5">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-black uppercase tracking-tighter shadow-md">
-                                        {{ substr($user->name, 0, 1) }}{{ substr(strrchr($user->name, ' '), 1, 1) ?: '' }}
+                                    @php $userAvatar = $user->getAvatarData(); @endphp
+                                    <div class="w-10 h-10 rounded-xl {{ $userAvatar['bg'] }} flex items-center justify-center shadow-md overflow-hidden shrink-0 border border-white">
+                                        <div class="p-2 w-full h-full">
+                                            {!! $userAvatar['svg'] !!}
+                                        </div>
                                     </div>
                                     <div class="flex flex-col">
-                                        <span class="text-slate-900 font-black text-sm tracking-tight">{{ $user->name }}</span>
+                                        <span class="text-slate-900 font-black text-sm tracking-tight leading-tight">{{ $user->name }}</span>
                                         <span class="text-slate-400 text-[11px] font-medium">{{ $user->email }}</span>
                                     </div>
                                 </div>
@@ -68,6 +71,7 @@
                                     <button
                                         data-uid="{{ $user->id }}"
                                         data-uname="{{ $user->name }}"
+                                        data-uavatar="{{ $user->avatar ?: 'av-1' }}"
                                         @click="openPassword($event.currentTarget.dataset)"
                                         class="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all" title="Seguridad / Password">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
@@ -98,7 +102,7 @@
          x-transition:enter-end="opacity-100">
         <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden border border-slate-100 slide-up"
              @click.away="editModal = false">
-            <div class="p-1 bg-gradient-to-r from-amber-500 to-orange-500"></div>
+
             <div class="flex items-center justify-between px-8 py-6 border-b border-slate-50">
                 <h2 class="text-lg font-black text-slate-900 uppercase tracking-tight flex items-center gap-3">
                     <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
@@ -157,7 +161,7 @@
          x-transition:enter-end="opacity-100">
         <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden border border-slate-100 slide-up"
              @click.away="passwordModal = false">
-            <div class="p-1 bg-gradient-to-r from-indigo-600 to-purple-600"></div>
+
             <div class="flex items-center justify-between px-8 py-6 border-b border-slate-50">
                 <h2 class="text-lg font-black text-slate-900 uppercase tracking-tight flex items-center gap-3">
                     <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
@@ -167,7 +171,10 @@
             </div>
             <div class="px-8 py-8">
                 <div class="mb-6 p-4 bg-indigo-50 rounded-2xl border border-indigo-100 flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-white text-indigo-600 flex items-center justify-center text-xs font-black shadow-sm" x-text="passwordUserName.charAt(0)"></div>
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xs font-black shadow-sm overflow-hidden"
+                         :class="avatarIcons[passwordUserAvatar]?.bg || 'bg-slate-100'"
+                         x-html="avatarIcons[passwordUserAvatar]?.svg || ''">
+                    </div>
                     <div class="flex flex-col">
                         <span class="text-[10px] font-black text-indigo-400 uppercase tracking-widest">Cambiando clave para:</span>
                         <span class="text-xs font-black text-indigo-900" x-text="passwordUserName"></span>
@@ -210,6 +217,11 @@
             editUserId: null,
             passwordUserId: null,
             passwordUserName: '',
+            passwordUserAvatar: 'av-1',
+            avatarIcons: @json(App\Models\User::avatarIcons()),
+            passwordUserId: null,
+            passwordUserName: '',
+            passwordUserAvatar: 'av-1',
             form: {
                 name: '',
                 adscripcion: '',
@@ -237,6 +249,7 @@
             openPassword(d) {
                 this.passwordUserId = d.uid;
                 this.passwordUserName = d.uname;
+                this.passwordUserAvatar = d.uavatar || 'av-1';
                 this.passwordModal = true;
             },
         };

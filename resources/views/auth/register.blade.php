@@ -11,41 +11,41 @@
     </div>
 
     <div class="max-w-lg mx-auto">
-        <div class="card">
-            <div class="card-body">
+        <div class="bg-white rounded-xl border border-slate-200">
+            <div class="p-5">
                 <form method="POST" action="{{ route('register') }}" class="space-y-5">
                     @csrf
 
                     <div>
-                        <label for="name" class="form-label">Nombre</label>
+                        <label for="name" class="block text-sm font-medium text-slate-700 mb-1">Nombre</label>
                         <input id="name" type="text" name="name"
-                               class="form-input @error('name') has-error @enderror"
+                               class="block w-full rounded-lg border-slate-200 bg-white text-sm transition-colors focus:border-blue-500 focus:ring-0 @error('name') border-red-400 focus:border-red-500 focus:ring-red-500 @enderror"
                                value="{{ old('name') }}" required autofocus>
-                        @error('name')<p class="form-error">{{ $message }}</p>@enderror
+                        @error('name')<p class="text-red-600 text-xs mt-1">{{ $message }}</p>@enderror
                     </div>
 
                     <div>
-                        <label for="email" class="form-label">Correo electrónico</label>
+                        <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Correo electrónico</label>
                         <input id="email" type="email" name="email"
-                               class="form-input @error('email') has-error @enderror"
+                               class="block w-full rounded-lg border-slate-200 bg-white text-sm transition-colors focus:border-blue-500 focus:ring-0 @error('email') border-red-400 focus:border-red-500 focus:ring-red-500 @enderror"
                                value="{{ old('email') }}" required>
-                        @error('email')<p class="form-error">{{ $message }}</p>@enderror
+                        @error('email')<p class="text-red-600 text-xs mt-1">{{ $message }}</p>@enderror
                     </div>
 
                     <div>
-                        <label for="password" class="form-label">Contraseña</label>
+                        <label for="password" class="block text-sm font-medium text-slate-700 mb-1">Contraseña</label>
                         <input id="password" type="password" name="password"
-                               class="form-input @error('password') has-error @enderror" required>
-                        @error('password')<p class="form-error">{{ $message }}</p>@enderror
+                               class="block w-full rounded-lg border-slate-200 bg-white text-sm transition-colors focus:border-blue-500 focus:ring-0 @error('password') border-red-400 focus:border-red-500 focus:ring-red-500 @enderror" required>
+                        @error('password')<p class="text-red-600 text-xs mt-1">{{ $message }}</p>@enderror
                     </div>
 
                     <div>
-                        <label for="password-confirm" class="form-label">Confirmar contraseña</label>
+                        <label for="password-confirm" class="block text-sm font-medium text-slate-700 mb-1">Confirmar contraseña</label>
                         <input id="password-confirm" type="password" name="password_confirmation"
-                               class="form-input" required>
+                               class="block w-full rounded-lg border-slate-200 bg-white text-sm transition-colors focus:border-blue-500 focus:ring-0" required>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-full py-2.5">
+                    <button type="submit" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 text-base font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-all w-full">
                         Registrarse
                     </button>
                 </form>

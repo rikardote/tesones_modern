@@ -10,7 +10,7 @@
                 </ol>
             </nav>
             <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
-                <span class="p-2.5 bg-blue-600 text-white rounded-xl shadow-lg shadow-blue-200">
+                <span class="p-2.5 bg-slate-900 text-white rounded-xl">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
                     </svg>
@@ -19,7 +19,7 @@
             </h1>
         </div>
         
-        <button wire:click="openCreate" class="group inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-200 transition-all duration-200 hover:scale-[1.02] active:scale-95">
+        <button wire:click="openCreate" class="btn-flat btn-flat-primary">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
@@ -37,14 +37,14 @@
     @endif
 
     {{-- Main Table Card --}}
-    <div class="card overflow-hidden border-none shadow-xl shadow-slate-200/60 ring-1 ring-slate-200 bg-white">
+    <div class="card-premium bg-white overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr class="bg-slate-50/50">
-                        <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-slate-100">Fecha Emisión</th>
-                        <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-slate-100">Descripción de la Nómina</th>
-                        <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-slate-100 text-center">Acciones</th>
+                    <tr class="bg-slate-50 text-slate-500 uppercase text-[10px] tracking-widest font-black border-b border-slate-100">
+                        <th class="px-6 py-4">Fecha Emisión</th>
+                        <th class="px-6 py-4">Descripción de la Nómina</th>
+                        <th class="px-6 py-4 text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-50">
@@ -117,7 +117,7 @@
     @if($showModal)
         <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md" x-data x-transition>
             <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden border border-slate-100 slide-up">
-                <div class="p-1 bg-gradient-to-r from-blue-600 to-indigo-600"></div>
+
                 <div class="flex items-center justify-between px-8 py-6 border-b border-slate-50">
                     <h2 class="text-lg font-black text-slate-900 uppercase tracking-tight flex items-center gap-3">
                         <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
@@ -128,19 +128,19 @@
                 <div class="px-8 py-8 space-y-6">
                     <div>
                         <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 block">Nombre Descriptivo</label>
-                        <input type="text" wire:model="nominaNombre" class="form-input w-full rounded-xl border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all font-semibold uppercase" placeholder="Ej: ORDINARIA, QNA 01 DEL 2026">
+                        <input type="text" wire:model="nominaNombre" class="block bg-white w-full rounded-xl border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all font-semibold uppercase" placeholder="Ej: ORDINARIA, QNA 01 DEL 2026">
                         <p class="mt-1.5 text-[10px] text-slate-400 italic">Sugerencia: TIPO, QNA [XX] DEL [AÑO]</p>
                         @error('nominaNombre') <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p> @enderror
                     </div>
                     <div>
                         <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 block">Fecha de Emisión Oficial</label>
-                        <input type="date" wire:model="fechaEmision" class="form-input w-full rounded-xl border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10">
+                        <input type="date" wire:model="fechaEmision" class="block bg-white w-full rounded-xl border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10">
                         @error('fechaEmision') <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p> @enderror
                     </div>
                 </div>
                 <div class="px-8 py-6 bg-slate-50/50 border-t border-slate-50 flex justify-end gap-3">
                     <button wire:click="closeModal" class="px-4 py-2 text-slate-600 font-bold text-sm">Cancelar</button>
-                    <button wire:click="save" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-200 transition-all flex items-center gap-2">
+                    <button wire:click="save" class="btn-flat btn-flat-primary">
                         <span wire:loading wire:target="save" class="lw-spinner border-white"></span>
                         {{ $isEditing ? 'Guardar Cambios' : 'Crear Registro' }}
                     </button>

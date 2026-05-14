@@ -12,7 +12,7 @@
                 </ol>
             </nav>
             <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
-                <span class="p-2.5 bg-red-600 text-white rounded-xl shadow-lg shadow-red-200">
+                <span class="p-2.5 bg-slate-900 text-white rounded-xl">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
                     </svg>
@@ -21,7 +21,7 @@
             </h1>
         </div>
         
-        <a href="{{ route('tesones.show', $teson) }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white hover:bg-slate-50 text-slate-700 font-bold rounded-xl shadow-sm border border-slate-200 transition-all">
+        <a href="{{ route('tesones.show', $teson) }}" class="btn-flat btn-flat-white">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
             Volver al Tesón
         </a>
@@ -30,7 +30,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {{-- Capture Form --}}
         <div class="lg:col-span-4 space-y-6">
-            <div class="card p-6 bg-white border-none shadow-xl shadow-slate-200/60 ring-1 ring-slate-200 rounded-3xl sticky top-8">
+            <div class="card-premium bg-white p-6 sticky top-8">
                 <div class="flex items-center gap-3 mb-6">
                     <div class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
@@ -51,31 +51,31 @@
 
                     <div>
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 block">Núm. Empleado</label>
-                        <input type="text" wire:model.blur="num_empleado" class="form-input w-full rounded-xl border-slate-200 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 font-mono" placeholder="00000">
+                        <input type="text" wire:model.blur="num_empleado" class="input-flat font-mono" placeholder="00000">
                         @error('num_empleado') <p class="mt-1 text-[10px] font-bold text-red-500">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 block">Nombre del Beneficiario</label>
-                        <input type="text" wire:model.blur="nombre" class="form-input w-full rounded-xl border-slate-200 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 uppercase font-semibold" placeholder="Nombre completo">
+                        <input type="text" wire:model.blur="nombre" class="input-flat uppercase font-semibold" placeholder="Nombre completo">
                         @error('nombre') <p class="mt-1 text-[10px] font-bold text-red-500">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 block">Folio (Cheque / Recibo)</label>
-                        <input type="text" wire:model.blur="numero_cheque" class="form-input w-full rounded-xl border-slate-200 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 font-mono" placeholder="Rango: {{ $teson->folio_inicial }} - {{ $teson->folio_final }}">
+                        <input type="text" wire:model.blur="numero_cheque" class="input-flat font-mono" placeholder="Rango: {{ $teson->folio_inicial }} - {{ $teson->folio_final }}">
                         @error('numero_cheque') <p class="mt-1 text-[10px] font-bold text-red-500">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 block">Importe ($)</label>
-                            <input type="text" wire:model.blur="importe" class="form-input w-full rounded-xl border-slate-200 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 font-mono text-right" placeholder="0.00">
+                            <input type="text" wire:model.blur="importe" class="input-flat font-mono text-right" placeholder="0.00">
                             @error('importe') <p class="mt-1 text-[10px] font-bold text-red-500">{{ $message }}</p> @enderror
                         </div>
                         <div>
                             <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 block">Clave</label>
-                            <select wire:model.blur="clave" class="form-select w-full rounded-xl border-slate-200 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 text-xs font-bold">
+                            <select wire:model.blur="clave" class="input-flat text-xs font-bold">
                                 <option value="">Seleccione...</option>
                                 @foreach($claves as $val => $lab)
                                     <option value="{{ $val }}">{{ $lab }}</option>
@@ -89,7 +89,7 @@
                         @if($editingId)
                             <button type="button" wire:click="resetForm" class="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold rounded-xl transition-all">Cancelar</button>
                         @endif
-                        <button type="submit" class="flex-[2] py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-lg shadow-red-200 transition-all flex items-center justify-center gap-2">
+                        <button type="submit" class="btn-flat btn-flat-primary flex-[2]">
                             <span wire:loading wire:target="save" class="lw-spinner border-white"></span>
                             {{ $editingId ? 'Actualizar' : 'Agregar a Lista' }}
                         </button>
@@ -100,7 +100,7 @@
 
         {{-- List --}}
         <div class="lg:col-span-8">
-            <div class="card overflow-hidden border-none shadow-xl shadow-slate-200/60 ring-1 ring-slate-200 bg-white">
+            <div class="card-premium bg-white">
                 <div class="px-6 py-4 bg-slate-50/50 border-b border-slate-100 flex items-center justify-between">
                     <h3 class="text-xs font-black text-slate-500 uppercase tracking-widest">Cancelaciones Registradas</h3>
                     <div class="flex items-center gap-2">

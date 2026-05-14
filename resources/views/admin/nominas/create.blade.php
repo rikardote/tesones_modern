@@ -11,8 +11,8 @@
     </div>
 
     <div class="max-w-lg">
-        <div class="card">
-            <div class="card-body">
+        <div class="bg-white rounded-xl border border-slate-200">
+            <div class="p-5">
                 <form action="{{ route('info_nominas.store') }}" method="POST">
                     @csrf
                     @include('admin.nominas.form')

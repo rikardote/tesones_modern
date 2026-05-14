@@ -9,18 +9,21 @@
                     <li class="text-slate-800 font-bold">Detalle de Registro</li>
                 </ol>
             </nav>
+            @php
+                $creatorAvatar = $teson->user->getAvatarData();
+            @endphp
             <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
-                <span class="p-2.5 bg-indigo-600 text-white rounded-xl shadow-lg shadow-indigo-200">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                    </svg>
-                </span>
+                <div class="w-12 h-12 rounded-xl {{ $creatorAvatar['bg'] }} flex items-center justify-center shadow-lg overflow-hidden border-2 border-white shrink-0">
+                    <div class="p-1.5 w-full h-full">
+                        {!! $creatorAvatar['svg'] !!}
+                    </div>
+                </div>
                 Tesón #{{ $teson->id }}
             </h1>
         </div>
 
         <div class="flex items-center gap-2">
-            <a href="{{ url('/tesones/' . $teson->id . '/imprimir') }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-200 transition-all hover:scale-[1.02] active:scale-95">
+            <a href="{{ url('/tesones/' . $teson->id . '/imprimir') }}" class="btn-flat bg-emerald-600 text-white">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                 Imprimir PDF
             </a>
@@ -33,21 +36,21 @@
 
     {{-- Action Bar --}}
     <div class="flex flex-wrap items-center gap-3 mb-6 skip-print">
-        <a href="{{ url('/cancelar/' . $teson->id) }}" class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 font-bold text-sm rounded-xl shadow-sm hover:bg-slate-50 transition-all">
+        <a href="{{ url('/cancelar/' . $teson->id) }}" class="btn-flat btn-flat-white">
             <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
             Agregar Cancelación
         </a>
-        <a href="{{ route('tesones.edit', $teson) }}" class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 font-bold text-sm rounded-xl shadow-sm hover:bg-slate-50 transition-all">
+        <a href="{{ route('tesones.edit', $teson) }}" class="btn-flat btn-flat-white">
             <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
             Editar Datos Base
         </a>
     </div>
 
     {{-- The Document Card --}}
-    <div class="card overflow-hidden border-none shadow-2xl shadow-slate-200/60 ring-1 ring-slate-200 bg-white">
-        <div class="p-1 bg-gradient-to-r from-indigo-600 via-blue-600 to-emerald-600"></div>
+    <div class="card-premium bg-white">
+
         
-        <div class="card-body p-8 space-y-8">
+        <div class="p-8 space-y-8">
             {{-- Header: Logo + Internal Control Info --}}
             <div class="flex flex-col md:flex-row justify-between items-start gap-6 border-b border-slate-100 pb-8">
                 <div class="flex items-center gap-4">
@@ -214,7 +217,7 @@
     @if ($showEditModal)
         <div class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md" x-data x-transition>
             <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden border border-slate-100 slide-up">
-                <div class="p-1 bg-gradient-to-r from-amber-500 to-orange-500"></div>
+
                 <div class="flex items-center justify-between px-8 py-6 border-b border-slate-50">
                     <h2 class="text-lg font-black text-slate-900 uppercase tracking-tight flex items-center gap-3">
                         <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>

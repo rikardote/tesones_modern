@@ -29,8 +29,8 @@
     </div>
 
     {{-- Main Form Card --}}
-    <div class="card overflow-hidden border-none shadow-2xl shadow-slate-200/60 ring-1 ring-slate-200 bg-white">
-        <div class="p-1 bg-gradient-to-r from-amber-500 to-orange-500"></div>
+    <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+
         <div class="p-8 md:p-12">
             <form action="{{ route('usuarios.update.admin', $user) }}" method="POST" class="space-y-8">
                 @csrf

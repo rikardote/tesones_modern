@@ -4,15 +4,20 @@
         <div>
             <nav class="flex mb-2 text-xs font-medium text-slate-500 uppercase tracking-wider" aria-label="Breadcrumb">
                 <ol class="flex items-center space-x-2">
+                    <li><span class="text-slate-400">Inicio</span></li>
+                    <li><svg class="w-3 h-3 mx-1 text-slate-300" fill="currentColor" viewBox="0 0 20 20"><path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"/></svg></li>
                     <li class="text-slate-800 font-bold">Mis Tesones</li>
                 </ol>
             </nav>
+            @php
+                $currentAvatar = $user->getAvatarData();
+            @endphp
             <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
-                <span class="p-2.5 bg-blue-600 text-white rounded-xl shadow-lg shadow-blue-200">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                    </svg>
-                </span>
+                <div class="w-12 h-12 rounded-xl {{ $currentAvatar['bg'] }} flex items-center justify-center shadow-lg overflow-hidden border-2 border-white shrink-0">
+                    <div class="p-1.5 w-full h-full">
+                        {!! $currentAvatar['svg'] !!}
+                    </div>
+                </div>
                 {{ $user->adscripcion }}
             </h1>
             <p class="mt-2 text-slate-500 text-sm flex items-center gap-2">
@@ -21,7 +26,7 @@
             </p>
         </div>
         
-        <a href="{{ route('tesones.create') }}" class="group inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-200 transition-all duration-200 hover:scale-[1.02] active:scale-95">
+        <a href="{{ route('tesones.create') }}" class="btn-flat btn-flat-primary">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
@@ -51,12 +56,11 @@
         </div>
     @endif
 
-    {{-- Main Content Card --}}
-    <div class="card overflow-hidden border-none shadow-xl shadow-slate-200/60 ring-1 ring-slate-200 bg-white">
+    <div class="card-premium bg-white">
         {{-- Card Header --}}
         <div class="p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50/50">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-100">
+                <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                 </div>
                 <div>

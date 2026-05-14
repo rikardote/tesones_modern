@@ -10,6 +10,10 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
     @yield('css')
+    <style>
+        [x-cloak] { display: none !important; }
+        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    </style>
 </head>
 <body class="h-full bg-slate-50 antialiased font-['Inter',sans-serif] selection:bg-blue-100 selection:text-blue-900" x-data="{ sidebarOpen: false }">
 
@@ -37,7 +41,7 @@
     </div>
 
     {{-- Sidebar --}}
-    <aside class="sidebar border-r border-white/5 shadow-2xl" :class="sidebarOpen ? 'open' : ''" x-cloak>
+    <aside class="sidebar border-r border-white/5" :class="sidebarOpen ? 'open' : ''" x-cloak>
         {{-- Logo --}}
         <div class="px-6 py-8">
             <a href="{{ url('/') }}" class="flex items-center gap-3 group">
@@ -136,8 +140,16 @@
         @auth
         <div class="mt-auto p-4 bg-white/5 backdrop-blur-md m-3 rounded-2xl border border-white/5">
             <div class="flex items-center gap-3 mb-4">
+                @php
+                    $currentAvatar = Auth::user()->getAvatarData();
+                @endphp
+                <div class="w-8 h-8 rounded-lg {{ $currentAvatar['bg'] }} flex items-center justify-center shrink-0 overflow-hidden shadow-sm">
+                    <div class="p-1.5 w-full h-full">
+                        {!! $currentAvatar['svg'] !!}
+                    </div>
+                </div>
                 <div class="overflow-hidden">
-                    <p class="text-white text-xs font-black truncate tracking-tight uppercase">{{ Auth::user()->name }}</p>
+                    <p class="text-white text-xs font-black truncate tracking-tight uppercase leading-tight">{{ Auth::user()->name }}</p>
                     <p class="text-slate-400 text-[9px] font-bold truncate uppercase tracking-widest">{{ Auth::user()->adscripcion ?? 'Personal' }}</p>
                 </div>
             </div>

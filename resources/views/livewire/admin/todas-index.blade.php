@@ -10,7 +10,7 @@
                 </ol>
             </nav>
             <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
-                <span class="p-2.5 bg-slate-900 text-white rounded-xl shadow-lg shadow-slate-200">
+                <span class="p-2.5 bg-slate-900 text-white rounded-xl">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                     </svg>
@@ -20,34 +20,34 @@
         </div>
         
         <div class="flex items-center gap-3">
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest bg-white px-4 py-2 rounded-xl border border-slate-100 shadow-sm">
+            <span class="btn-flat btn-flat-white pointer-events-none">
                 Total registros: {{ $tesones->total() }}
             </span>
         </div>
     </div>
 
     {{-- Filters Toolbar --}}
-    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50 mb-8">
+    <div class="card-premium bg-white p-6 mb-8">
         <div class="flex flex-col lg:flex-row items-center gap-4">
             <div class="relative flex-1 w-full">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0"/></svg>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0"/></svg>
                 </div>
                 <input type="search" 
                        wire:model.live.debounce.300ms="search"
-                       class="form-input w-full pl-12 pr-4 py-3 rounded-2xl border-slate-100 bg-slate-50/50 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all text-sm" 
+                       class="input-flat pl-12 py-3" 
                        placeholder="Buscar por nómina, usuario o adscripción...">
             </div>
 
             <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
-                <select wire:model.live="filterTipo" class="form-select rounded-2xl border-slate-100 bg-slate-50/50 focus:bg-white text-xs font-bold text-slate-600 py-3 pl-4 pr-10">
+                <select wire:model.live="filterTipo" class="input-flat text-xs font-bold py-3 pr-10">
                     <option value="">Tipo de Personal</option>
                     @foreach(\App\Enums\TipoPersonal::selectOptions() as $val => $lab)
                         <option value="{{ $val }}">{{ $lab }}</option>
                     @endforeach
                 </select>
 
-                <select wire:model.live="filterPago" class="form-select rounded-2xl border-slate-100 bg-slate-50/50 focus:bg-white text-xs font-bold text-slate-600 py-3 pl-4 pr-10">
+                <select wire:model.live="filterPago" class="input-flat text-xs font-bold py-3 pr-10">
                     <option value="">Forma de Pago</option>
                     @foreach(\App\Enums\FormaPago::selectOptions() as $val => $lab)
                         <option value="{{ $val }}">{{ $lab }}</option>
@@ -56,7 +56,7 @@
 
                 @if($search || $filterTipo || $filterPago)
                     <button wire:click="$set('search', ''); $set('filterTipo', ''); $set('filterPago', '')"
-                            class="p-3 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-2xl transition-all"
+                            class="p-3 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
                             title="Limpiar filtros">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                     </button>
@@ -66,16 +66,16 @@
     </div>
 
     {{-- Main Table Card --}}
-    <div class="card overflow-hidden border-none shadow-xl shadow-slate-200/60 ring-1 ring-slate-200 bg-white">
+    <div class="card-premium bg-white overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr class="bg-slate-50/50 border-b border-slate-100">
-                        <th class="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Fecha / Nómina</th>
-                        <th class="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">Clasificación</th>
-                        <th class="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Unidad de Adscripción</th>
-                        <th class="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Generado Por</th>
-                        <th class="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">Acciones</th>
+                    <tr class="bg-slate-50 text-slate-500 uppercase text-[10px] tracking-widest font-black border-b border-slate-100">
+                        <th class="px-6 py-4">Fecha / Nómina</th>
+                        <th class="px-6 py-4 text-center">Clasificación</th>
+                        <th class="px-6 py-4">Unidad de Adscripción</th>
+                        <th class="px-6 py-4">Generado Por</th>
+                        <th class="px-6 py-4 text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-50" wire:loading.class="opacity-50 transition-opacity">
@@ -108,9 +108,14 @@
                                 </div>
                             </td>
                             <td class="px-6 py-5">
+                                @php
+                                    $userAvatar = $teson->user->getAvatarData();
+                                @endphp
                                 <div class="flex items-center gap-3">
-                                    <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-[10px] font-black uppercase tracking-tighter shadow-md">
-                                        {{ substr($teson->user->name ?? 'N', 0, 1) }}{{ substr(strrchr($teson->user->name ?? ' A', ' '), 1, 1) ?: '' }}
+                                    <div class="w-8 h-8 rounded-lg {{ $userAvatar['bg'] }} flex items-center justify-center shadow-md overflow-hidden shrink-0 border border-white">
+                                        <div class="p-1.5 w-full h-full">
+                                            {!! $userAvatar['svg'] !!}
+                                        </div>
                                     </div>
                                     <span class="text-slate-700 font-semibold text-xs tracking-tight">{{ $teson->user->name ?? 'Usuario Desconocido' }}</span>
                                 </div>
