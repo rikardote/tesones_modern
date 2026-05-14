@@ -60,7 +60,7 @@
                 </div>
                 
                 <div class="flex flex-col items-end">
-                    <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-[10px] font-black uppercase tracking-widest mb-3 italic">Formato T-SON 19.1</span>
+                    <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-[10px] font-black uppercase tracking-widest mb-3 italic">T-SON 19.1</span>
                     <div class="bg-slate-50 rounded-2xl p-4 border border-slate-100 flex gap-6 text-center">
                         <div class="flex flex-col">
                             <span class="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">Día</span>

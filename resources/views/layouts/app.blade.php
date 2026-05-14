@@ -136,9 +136,6 @@
         @auth
         <div class="mt-auto p-4 bg-white/5 backdrop-blur-md m-3 rounded-2xl border border-white/5">
             <div class="flex items-center gap-3 mb-4">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center text-xs font-black shadow-lg shadow-blue-500/20 uppercase">
-                    {{ substr(Auth::user()->name, 0, 1) }}{{ substr(strrchr(Auth::user()->name, ' '), 1, 1) ?: '' }}
-                </div>
                 <div class="overflow-hidden">
                     <p class="text-white text-xs font-black truncate tracking-tight uppercase">{{ Auth::user()->name }}</p>
                     <p class="text-slate-400 text-[9px] font-bold truncate uppercase tracking-widest">{{ Auth::user()->adscripcion ?? 'Personal' }}</p>
