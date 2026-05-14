@@ -35,7 +35,7 @@
         {{-- Form Side --}}
         <div class="lg:col-span-8 space-y-6">
             {{-- Section 0: Centro de Trabajo --}}
-            <div class="card overflow-hidden border-none shadow-xl shadow-slate-200/60 ring-1 ring-slate-200">
+            <div class="card overflow-hidden border-none shadow-md shadow-slate-200/50 ring-1 ring-slate-200">
                 <div class="p-1 bg-gradient-to-r from-emerald-500 to-teal-600"></div>
                 <div class="card-body p-8">
                     <div class="flex items-center gap-3 mb-8">
@@ -91,7 +91,7 @@
             </div>
 
             {{-- Section 1: Nomina --}}
-            <div class="card overflow-hidden border-none shadow-xl shadow-slate-200/60 ring-1 ring-slate-200">
+            <div class="card overflow-hidden border-none shadow-md shadow-slate-200/50 ring-1 ring-slate-200">
                 <div class="p-1 bg-gradient-to-r from-blue-600 to-indigo-600"></div>
                 <div class="card-body p-8">
                     <div class="flex items-center gap-3 mb-8">
@@ -122,7 +122,7 @@
             </div>
 
             {{-- Section 2: Detalles --}}
-            <div class="card overflow-hidden border-none shadow-xl shadow-slate-200/60 ring-1 ring-slate-200">
+            <div class="card overflow-hidden border-none shadow-md shadow-slate-200/50 ring-1 ring-slate-200">
                 <div class="p-1 bg-gradient-to-r from-indigo-600 to-purple-600"></div>
                 <div class="card-body p-8">
                     <div class="flex items-center gap-3 mb-8">
@@ -194,7 +194,7 @@
 
         {{-- Sidebar Summary --}}
         <div class="lg:col-span-4 space-y-6">
-            <div class="card bg-slate-900 border-none shadow-2xl shadow-slate-300 text-white overflow-hidden sticky top-8">
+            <div class="card bg-slate-900 border-none shadow-xl shadow-slate-200 text-white overflow-hidden sticky top-8">
                 <div class="p-8">
                     <h3 class="text-[10px] font-black text-blue-400 uppercase tracking-[0.2em] mb-8">Validación de Envío</h3>
                     
@@ -230,7 +230,7 @@
 
                     <div class="mt-10 pt-8 border-t border-white/5">
                         <button wire:click="save"
-                                class="w-full bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-black uppercase tracking-widest text-xs py-4 rounded-2xl shadow-xl shadow-blue-900/40 transition-all duration-300 flex items-center justify-center gap-3 group">
+                                class="w-full bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-black uppercase tracking-widest text-xs py-4 rounded-2xl shadow-lg shadow-blue-900/20 transition-all duration-300 flex items-center justify-center gap-3 group">
                             <span wire:loading wire:target="save" class="lw-spinner border-white"></span>
                             <span wire:loading.remove wire:target="save" class="flex items-center gap-3">
                                 <svg class="w-5 h-5 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
