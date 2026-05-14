@@ -5,8 +5,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'ISSSTE') | Generador de Tesones</title>
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800,900" rel="stylesheet" />
+    {{-- Font optimization for offline servers --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
     @yield('css')
@@ -15,7 +14,7 @@
         * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
     </style>
 </head>
-<body class="h-full bg-slate-50 antialiased font-['Inter',sans-serif] selection:bg-blue-100 selection:text-blue-900" x-data="{ sidebarOpen: false }">
+<body class="h-full bg-slate-50 antialiased selection:bg-blue-100 selection:text-blue-900" x-data="{ sidebarOpen: false }">
 
     {{-- Mobile topbar --}}
     <header class="mobile-topbar md:hidden backdrop-blur-md bg-slate-900/90 border-b border-white/5">
